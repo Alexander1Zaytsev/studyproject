@@ -4,11 +4,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+
 import java.io.*;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by User on 27/10/2016.
@@ -50,6 +49,4 @@ public class ApplicationTest {
            e.printStackTrace();
        }
     }
-
-
 }

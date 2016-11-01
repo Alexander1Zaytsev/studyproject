@@ -33,17 +33,17 @@ public class ApplicationTest {
     public void testHello(){
 
        try (FileOutputStream fileOutputStream = new FileOutputStream(file);
-            PrintStream out = new PrintStream(fileOutputStream)) {
-
+            PrintStream out = new PrintStream(fileOutputStream);
+            FileReader fis = new FileReader(file)) {
 
            System.setOut(out);
 
            Application.main(null);
 
-           FileReader fis = new FileReader(file);
            String s = new BufferedReader(fis).readLine();
 
            assertEquals("Unexpected output", "Hello!",s);
+           
        } catch (FileNotFoundException e) {
            e.printStackTrace();
        } catch (IOException e) {

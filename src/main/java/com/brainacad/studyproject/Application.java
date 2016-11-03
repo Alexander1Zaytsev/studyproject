@@ -16,7 +16,7 @@ public class Application {
 
         LoginServiceImpl loginService = new LoginServiceImpl();
 
-        if (loginService.login("qweqw","qweqweqwe")) {
+        if (loginService.login("user","user")) {
             System.out.println("Success");
         } else {
             System.out.println("Login failed");

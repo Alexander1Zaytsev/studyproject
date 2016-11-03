@@ -4,12 +4,12 @@ import com.brainacad.studyproject.data.dao.DaoFactory;
 import com.brainacad.studyproject.data.dao.UserDao;
 
 /**
- * Created by User on 01/11/2016.
+ * Created by Alexander on 11/3/2016.
  */
 public class StubDaoFactory extends DaoFactory {
 
     @Override
     public UserDao getUserDao() {
-        return null;
+        return new StubUserDao();
     }
 }

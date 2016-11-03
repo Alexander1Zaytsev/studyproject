@@ -1,34 +1,33 @@
-package com.brainacad.studyproject.data.cor;
+package com.brainacad.studyproject.data.core;
 
+
+import static com.brainacad.studyproject.data.domain.Role.USER;
+import static com.brainacad.studyproject.data.domain.Role.ADMIN;
 import com.brainacad.studyproject.data.domain.User;
 
 import java.util.Collection;
 import java.util.HashSet;
 
-import static com.brainacad.studyproject.data.domain.Role.ADMIN;
-import static com.brainacad.studyproject.data.domain.Role.USER;
-
 /**
- * Created by User on 01/11/2016.
+ * Created by Alexander on 11/3/2016.
  */
-public class StabDataHolder {
+public class StubDataHolder {
 
     private static Collection<User> users;
     private static boolean created = false;
 
-
     public static void createData(){
 
-        if (!created) {
+        if (!created){
             User admin = new User();
             admin.setUsername("admin");
             admin.setPassword("admin");
             admin.setRole(ADMIN);
 
             User user = new User();
-            user.setUsername("user");
-            user.setPassword("user");
-            user.setRole(USER);
+            admin.setUsername("user");
+            admin.setPassword("user");
+            admin.setRole(USER);
 
             users = new HashSet<>();
             users.add(admin);
@@ -38,8 +37,7 @@ public class StabDataHolder {
         }
     }
 
-    public static Collection<User> getUsers(){
+    public static Collection<User> getUsers() {
         return users;
     }
-
 }

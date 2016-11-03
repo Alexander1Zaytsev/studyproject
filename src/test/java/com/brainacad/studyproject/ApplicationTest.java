@@ -42,7 +42,7 @@ public class ApplicationTest {
            String s = new BufferedReader(fis).readLine();
 
            assertEquals("Unexpected output", "Hello!",s);
-           
+
        } catch (FileNotFoundException e) {
            e.printStackTrace();
        } catch (IOException e) {

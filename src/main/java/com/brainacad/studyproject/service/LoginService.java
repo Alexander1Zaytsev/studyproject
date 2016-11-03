@@ -1,7 +1,7 @@
 package com.brainacad.studyproject.service;
 
 /**
- * Created by User on 01/11/2016.
+ * Created by Alexander on 11/3/2016.
  */
 public interface LoginService {
 

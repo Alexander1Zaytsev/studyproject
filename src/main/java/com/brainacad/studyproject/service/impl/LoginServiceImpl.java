@@ -6,7 +6,7 @@ import com.brainacad.studyproject.data.domain.User;
 import com.brainacad.studyproject.service.LoginService;
 
 /**
- * Created by User on 01/11/2016.
+ * Created by Alexander on 11/3/2016.
  */
 public class LoginServiceImpl implements LoginService{
 
@@ -18,6 +18,4 @@ public class LoginServiceImpl implements LoginService{
         User user = userDao.getUserByName(username);
         return user != null && password.equals(user.getPassword());
     }
-
-
 }

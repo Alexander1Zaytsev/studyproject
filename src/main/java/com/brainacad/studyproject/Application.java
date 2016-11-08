@@ -2,6 +2,9 @@ package com.brainacad.studyproject;
 
 import com.brainacad.studyproject.data.dao.impl.JdbcUserDao;
 import com.brainacad.studyproject.data.domain.User;
+import com.brainacad.studyproject.gui.view.ViewRouter;
+
+import java.awt.*;
 
 /**
  * Created by User on 27/10/2016.
@@ -50,8 +53,15 @@ public class Application {
 
     public static void main(String[] args) {
 
-        JdbcUserDao dao = new JdbcUserDao();
-        User admin = dao.getUserByName("admin");
-        System.out.println(admin);
+//        JdbcUserDao dao = new JdbcUserDao();
+//        User admin = dao.getUserByName("admin");
+//        System.out.println(admin);
+
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ViewRouter.getInstance();
+            }
+        });
     }
 }

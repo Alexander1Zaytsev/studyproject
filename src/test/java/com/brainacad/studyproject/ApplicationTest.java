@@ -12,6 +12,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by User on 27/10/2016.
  */
+
 public class ApplicationTest {
 
     public static final String HELLO_TXT = "hello.txt";

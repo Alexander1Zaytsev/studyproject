@@ -13,7 +13,7 @@ import java.sql.SQLException;
 /**
  * Created by User on 05/11/2016.
  */
-public class jdbcUserDao implements UserDao {
+public class JdbcUserDao implements UserDao {
 
     private ConnectionManager connectionManager = ConnectionManager.getInstance();
 

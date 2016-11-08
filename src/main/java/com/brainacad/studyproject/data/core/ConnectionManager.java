@@ -23,29 +23,26 @@ public class ConnectionManager {
 
     public Connection getConnection() {
 
+        Connection connection = null;
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/brain?useUnicode\\\\=true&characterEncoding\\\\=UTF-8", "root", "root");
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }
-
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/brain?useUnicode\\\\=true&characterEncoding\\\\=UTF-8", "root", "root56");
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users");
-
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet != null) {
-                while (resultSet.next()) {
-                    System.out.println(resultSet.getInt("user_id") + " " + resultSet.getString("username"));
-                }
-
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return connection;
+    }
 
+    public void closeConnection(Connection connection){
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

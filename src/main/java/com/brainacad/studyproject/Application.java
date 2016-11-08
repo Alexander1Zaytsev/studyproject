@@ -1,6 +1,6 @@
 package com.brainacad.studyproject;
 
-import com.brainacad.studyproject.data.dao.impl.JdbcUserDao;
+import com.brainacad.studyproject.data.dao.impl.jdbcUserDao;
 import com.brainacad.studyproject.data.domain.User;
 
 /**
@@ -50,7 +50,7 @@ public class Application {
 
     public static void main(String[] args) {
 
-        JdbcUserDao dao = new JdbcUserDao();
+        jdbcUserDao dao = new jdbcUserDao();
         User admin = dao.getUserByName("admin");
         System.out.println(admin);
     }

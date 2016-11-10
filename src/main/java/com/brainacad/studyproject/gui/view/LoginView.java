@@ -26,18 +26,22 @@ public class LoginView extends RefreshableView {
         usernameField.setBounds(188, 51, 99, 20);
         content.add(usernameField);
         usernameField.setColumns(10);
+
         JLabel usernameLabel = new JLabel("Username");
         usernameLabel.setBounds(70, 54, 86, 14);
         content.add(usernameLabel);
+
         passwordField= new JTextField();
         passwordField.setBounds(188, 106, 99, 20);
         content.add(passwordField);
         passwordField.setColumns(10);
+
         JLabel passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(70, 109, 86, 14);
         content.add(passwordLabel);
         JButton loginButton = new JButton("Login");
         loginButton.setBounds(131, 165, 89, 23);
+
         content.add(loginButton);
         loginButton.addActionListener(new ActionListener() {
             @Override

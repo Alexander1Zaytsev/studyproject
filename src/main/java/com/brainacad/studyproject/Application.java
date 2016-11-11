@@ -56,7 +56,7 @@ public class Application {
 
 //        JdbcUserDao dao = new JdbcUserDao();
 //        User admin = dao.getUserByName("admin");
-//        System.out.println(admin);hgh
+//        System.out.println(admin);
 
         StubDataHolder.createData();
 

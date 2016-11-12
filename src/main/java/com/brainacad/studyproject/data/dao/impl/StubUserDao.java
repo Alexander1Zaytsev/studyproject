@@ -23,6 +23,13 @@ public class StubUserDao implements UserDao {
 
     @Override
     public User get(int id) {
+        Collection<User> users = StubDataHolder.getUsers();
+
+        for (User user:users){
+            if (user.getId() == id){
+                return user;
+            }
+        }
         return null;
     }
 

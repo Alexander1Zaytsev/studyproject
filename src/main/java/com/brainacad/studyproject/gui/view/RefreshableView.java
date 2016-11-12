@@ -12,6 +12,6 @@ public abstract class RefreshableView {
     public JPanel getContent() {
         return content;
     }
-    public abstract void refresh();
+    public abstract void refresh(Object... params);
 
 }

@@ -1,6 +1,8 @@
 package com.brainacad.studyproject.gui.view;
 
 import com.brainacad.studyproject.data.domain.User;
+import com.brainacad.studyproject.gui.editor.UserEditButtonEditor;
+import com.brainacad.studyproject.gui.renderer.TableButtonCellRenderer;
 import com.brainacad.studyproject.service.UserService;
 import com.brainacad.studyproject.service.impl.UserServiceImpl;
 
@@ -9,9 +11,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.function.Consumer;
 
+import static com.brainacad.studyproject.gui.view.View.ADD_USER;
 import static com.brainacad.studyproject.gui.view.View.USERS;
 
 /**
@@ -19,16 +23,28 @@ import static com.brainacad.studyproject.gui.view.View.USERS;
  */
 public class UsersView extends RefreshableView {
 
+
+    private JButton addButton;
     private JTable usersTable;
     private DefaultTableModel tableModel;
     private UserService userService;
     public UsersView() {
         userService = new UserServiceImpl();
         content.setBorder(new EmptyBorder(5, 5, 5, 5));
-        String col[] = {"ID","USERNAME", "EDIT"};
-        tableModel = new DefaultTableModel(col, 0);
+        addButton = new JButton("ADD");
+        content.add(addButton);
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ViewRouter viewRouter = ViewRouter.getInstance();
+                viewRouter.switchView(USERS, ADD_USER);
+            }
+        });
+        String [] columns = {"ID","USERNAME", ""};
+        tableModel = new DefaultTableModel(columns, 0);
         usersTable = new JTable(tableModel);
-        //usersTable.setDefaultRenderer(User.class, new UsersTableCellRenderer());
+        usersTable.getColumnModel().getColumn(2).setCellRenderer(new TableButtonCellRenderer());
+        usersTable.getColumnModel().getColumn(2).setCellEditor(new UserEditButtonEditor(new JCheckBox()));
         content.add(usersTable);
     }
     @Override
@@ -36,7 +52,7 @@ public class UsersView extends RefreshableView {
         return USERS;
     }
     @Override
-    public void refresh() {
+    public void refresh(Object ... params) {
         Collection<User> users = userService.getAllUsers();
         users.forEach(new Consumer<User>() {
             @Override
@@ -45,7 +61,9 @@ public class UsersView extends RefreshableView {
             }
         });
     }
+
     public Object[] map(User user) {
-        return new Object[] {user.getId(), user.getUsername(), user.getPassword()};
+        return new Object[] {user.getId(), user.getUsername(), "EDIT"};
     }
+
 }

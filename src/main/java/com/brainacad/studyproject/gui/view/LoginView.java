@@ -68,7 +68,7 @@ public class LoginView extends RefreshableView {
         return content;
     }
     @Override
-    public void refresh() {
+    public void refresh(Object... params) {
         usernameField.setText("");
         passwordField.setText("");
     }

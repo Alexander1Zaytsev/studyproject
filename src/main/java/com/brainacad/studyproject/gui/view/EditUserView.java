@@ -13,14 +13,45 @@ import static com.brainacad.studyproject.gui.view.View.EDIT_USER;
  */
 public class EditUserView extends RefreshableView {
 
+    private JButton updateButton;
+    private JButton deleteButton;
+
+    private JTextField usernameField;
+    private JTextField passwordField;
+    private JLabel userIdLabel;
+    private JLabel usernameLabel;
+    private JLabel passwordLabel;
+
     private UserService userService;
 
-    private JLabel testLabel;
 
     public EditUserView(){
+
         userService = new UserServiceImpl();
-        testLabel = new JLabel();
-        content.add(testLabel);
+
+
+        userIdLabel = new JLabel("ID");
+        userIdLabel.setBounds(70, 54, 86, 14);
+        content.add(userIdLabel);
+
+        usernameLabel = new JLabel("Name");
+        usernameLabel.setBounds(70, 54, 86, 14);
+        content.add(usernameLabel);
+        usernameField = new JTextField();
+        usernameField.setColumns(10);
+        content.add(usernameField);
+
+        passwordLabel = new JLabel("Password");
+        passwordLabel.setBounds(70, 54, 86, 14);
+        content.add(passwordLabel);
+        passwordField = new JTextField();
+        passwordField.setColumns(10);
+        content.add(passwordField);
+
+
+        updateButton = new JButton("UPDATE");
+        createButton.setBounds(131, 165, 89, 23);
+        content.add(createButton);
     }
 
 

@@ -35,7 +35,7 @@ public class StubUserDao implements UserDao {
 
     @Override
     public int add(User entity) {
-        return 0;
+        return StubDataHolder.add(entity);
     }
 
     @Override

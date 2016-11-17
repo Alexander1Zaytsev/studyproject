@@ -45,6 +45,14 @@ public class StubUserDao implements UserDao {
 
     @Override
     public boolean update(User entity) {
+        Collection<User> users = StubDataHolder.getUsers();
+        for (User user: users){
+            if (user.getId() == entity.getId()){
+                user.setUsername(entity.getUsername());
+                user.setPassword(entity.getPassword());
+                return true;
+            }
+        }
         return false;
     }
 

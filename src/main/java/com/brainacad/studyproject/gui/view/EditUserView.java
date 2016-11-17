@@ -6,7 +6,11 @@ import com.brainacad.studyproject.service.impl.UserServiceImpl;
 
 import javax.swing.*;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import static com.brainacad.studyproject.gui.view.View.EDIT_USER;
+import static com.brainacad.studyproject.gui.view.View.USERS;
 
 /**
  * Created by User on 12/11/2016.
@@ -50,8 +54,24 @@ public class EditUserView extends RefreshableView {
 
 
         updateButton = new JButton("UPDATE");
-        createButton.setBounds(131, 165, 89, 23);
-        content.add(createButton);
+        updateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String id = userIdLabel.getText().trim();
+                String username = usernameField.getText().trim();
+                String pass = passwordField.getText().trim();
+                User user = new User();
+                user.setId(Integer.parseInt(id));
+                user.setUsername(username);
+                user.setPassword(pass);
+                if (!userService.update(user)){
+                    JOptionPane.showMessageDialog(null,"Failed to update user");
+                }
+                ViewRouter viewRouter = ViewRouter.getInstance();
+                viewRouter.switchView(getName(), USERS);
+            }
+        });
+        content.add(updateButton);
     }
 
 
@@ -63,6 +83,8 @@ public class EditUserView extends RefreshableView {
     @Override
     public void refresh(Object... params) {
         User user = userService.getUserById((Integer) params[0]);
-        testLabel.setText(user.getId() + ":" + user.getUsername());
+        userIdLabel.setText("" + user.getId());
+        usernameField.setText(user.getUsername());
+        passwordField.setText(user.getPassword());
     }
 }

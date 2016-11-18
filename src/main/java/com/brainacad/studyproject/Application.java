@@ -56,14 +56,18 @@ public class Application {
 //        User admin = dao.getUserByName("admin");
 //        System.out.println(admin);
 
-        StubDataHolder.createData();
+//        StubDataHolder.createData();
+//
+//        EventQueue.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                ViewRouter viewRouter = ViewRouter.getInstance();
+//                viewRouter.start();
+//            }
+//        });
 
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                ViewRouter viewRouter = ViewRouter.getInstance();
-                viewRouter.start();
-            }
-        });
+        ApplicationInitializer.initialize();
+
+
     }
 }

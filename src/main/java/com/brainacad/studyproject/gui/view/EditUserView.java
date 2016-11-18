@@ -1,6 +1,7 @@
 package com.brainacad.studyproject.gui.view;
 
 import com.brainacad.studyproject.data.domain.User;
+import com.brainacad.studyproject.gui.ViewRouter;
 import com.brainacad.studyproject.service.UserService;
 import com.brainacad.studyproject.service.impl.UserServiceImpl;
 
@@ -72,6 +73,20 @@ public class EditUserView extends RefreshableView {
             }
         });
         content.add(updateButton);
+
+        deleteButton = new JButton("DELETE");
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String id = userIdLabel.getText();
+                if (!userService.delete(Integer.parseInt(id))) {
+                    JOptionPane.showMessageDialog(null, "Failed to delete");
+                }
+                ViewRouter viewRouter = ViewRouter.getInstance();
+                viewRouter.switchView(getName(), USERS);
+            }
+        });
+        content.add(deleteButton);
     }
 
 

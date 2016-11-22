@@ -27,4 +27,6 @@ public abstract class DaoFactory {
                 return new StubDaoFactory();
         }
     }
+
+    public abstract AdDao getAdDao();
 }

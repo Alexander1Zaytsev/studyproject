@@ -1,5 +1,6 @@
 package com.brainacad.studyproject.data.dao;
 
+import com.brainacad.studyproject.data.dao.impl.JdbcAdDao;
 import com.brainacad.studyproject.data.dao.impl.JdbcUserDao;
 
 /**
@@ -9,5 +10,10 @@ public class JdbcDaoFactory extends DaoFactory {
     @Override
     public UserDao getUserDao() {
         return new JdbcUserDao();
+    }
+
+    @Override
+    public AdDao getAdDao() {
+        return new JdbcAdDao();
     }
 }

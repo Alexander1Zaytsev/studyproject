@@ -11,12 +11,14 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.function.Consumer;
 
 import static com.brainacad.studyproject.gui.view.View.ADD_USER;
+import static com.brainacad.studyproject.gui.view.View.LOGIN;
 import static com.brainacad.studyproject.gui.view.View.USERS;
 
 /**
@@ -24,7 +26,7 @@ import static com.brainacad.studyproject.gui.view.View.USERS;
  */
 public class UsersView extends RefreshableView {
 
-
+    private JButton backToLoginButton;
     private JButton addButton;
     private JTable usersTable;
     private DefaultTableModel tableModel;
@@ -47,6 +49,16 @@ public class UsersView extends RefreshableView {
         usersTable.getColumnModel().getColumn(2).setCellRenderer(new TableButtonCellRenderer());
         usersTable.getColumnModel().getColumn(2).setCellEditor(new UserEditButtonEditor(new JCheckBox()));
         content.add(usersTable);
+
+        backToLoginButton = new JButton("Back to Login");
+        content.add(backToLoginButton);
+        backToLoginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ViewRouter viewRouter = ViewRouter.getInstance();
+                viewRouter.switchView(getName(),LOGIN);
+            }
+        });
     }
     @Override
     public View getName() {

@@ -1,15 +1,20 @@
 package com.brainacad.studyproject.gui.view;
 
 
+import com.brainacad.studyproject.data.domain.Role;
 import com.brainacad.studyproject.gui.ViewRouter;
 import com.brainacad.studyproject.service.LoginService;
+import com.brainacad.studyproject.service.UserService;
 import com.brainacad.studyproject.service.impl.LoginServiceImpl;
+import com.brainacad.studyproject.service.impl.UserServiceImpl;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static com.brainacad.studyproject.data.domain.Role.ADMIN;
+import static com.brainacad.studyproject.gui.view.View.ALL_ADS;
 import static com.brainacad.studyproject.gui.view.View.USERS;
 
 /**
@@ -20,6 +25,8 @@ public class LoginView extends RefreshableView {
     private JTextField usernameField;
     private JTextField passwordField;
     private LoginService loginService;
+    private int userEnterId;
+
     public LoginView() {
         loginService = new LoginServiceImpl();
         content.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -49,14 +56,27 @@ public class LoginView extends RefreshableView {
             public void actionPerformed(ActionEvent e) {
                 String username = usernameField.getText().trim();
                 String password = passwordField.getText().trim();
-                boolean login = loginService.login(username, password);
-                if (login) {
-                    ViewRouter viewRouter = ViewRouter.getInstance();
-                    viewRouter.switchView(getName(), USERS);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Wrong username or password");
-                    refresh();
+                Role login = loginService.login(username, password);
+                ViewRouter viewRouter = ViewRouter.getInstance();
+                switch (login){
+                    case USER:
+                        viewRouter.switchView(getName(),ALL_ADS, loginService.getUserId(username,password));
+                        break;
+                    case ADMIN:
+                        viewRouter.switchView(getName(), USERS);
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(null, "Wrong username or password");
+                        refresh();
+                        break;
                 }
+//                if (login.equals(ADMIN)) {
+//                    ViewRouter viewRouter = ViewRouter.getInstance();
+//                    viewRouter.switchView(getName(), USERS);
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "Wrong username or password");
+//                    refresh();
+//                }
             }
         });
     }

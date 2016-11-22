@@ -32,14 +32,6 @@ public class AddUserView extends RefreshableView {
     public AddUserView() {
         userService = new UserServiceImpl();
 
-
-        userIdLabel = new JLabel("ID");
-        userIdLabel.setBounds(70, 54, 86, 14);
-        content.add(userIdLabel);
-        userIdField = new JTextField();
-        userIdField.setColumns(10);
-        content.add(userIdField);
-
         usernameLabel = new JLabel("Name");
         usernameLabel.setBounds(70, 54, 86, 14);
         content.add(usernameLabel);
@@ -47,7 +39,7 @@ public class AddUserView extends RefreshableView {
         usernameField.setColumns(10);
         content.add(usernameField);
 
-        passwordLabel = new JLabel("Name");
+        passwordLabel = new JLabel("Password");
         passwordLabel.setBounds(70, 54, 86, 14);
         content.add(passwordLabel);
         passwordField = new JTextField();
@@ -62,12 +54,10 @@ public class AddUserView extends RefreshableView {
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String userId = userIdField.getText().trim();
                 String username = usernameField.getText().trim();
                 String password = passwordField.getText().trim();
 
                 User user = new User();
-                user.setId(Integer.parseInt(userId));
                 user.setUsername(username);
                 user.setPassword(password);
 

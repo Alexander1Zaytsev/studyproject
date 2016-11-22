@@ -7,5 +7,6 @@ public enum AdType {
 
     PURCHASE,
     SELL,
-    EXCHANGE
+    EXCHANGE,
+    ABSENT_AD_TYPE
 }

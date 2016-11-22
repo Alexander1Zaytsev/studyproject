@@ -56,7 +56,7 @@ public class StubDataHolder {
             ad1.setUserIdAdGot(2);
             ad1.setAdType(SELL);
             ad1.setShortDescription("Sell the car");
-            ad1.setFullDescription("Sell bmw V8 4.0L 444hp, mileage 100000km ");
+            ad1.setFullDescription("Sell bmw V8 4.0L 444hp, mileage 100000km");
 
             Ad ad2 = new Ad();
             ad2.setId(2);
@@ -70,7 +70,7 @@ public class StubDataHolder {
             ad3.setUserIdAdGot(2);
             ad3.setAdType(EXCHANGE);
             ad3.setShortDescription("Exchange cars");
-            ad3.setFullDescription("Change my bmw V8 4.0L 444hp, mileage 100000km on a mercedes amg 4.0L ");
+            ad3.setFullDescription("Change my bmw V8 4.0L 444hp, mileage 100000km on a mercedes amg 4.0L");
 
             ads = new HashSet<>();
             ads.add(ad1);

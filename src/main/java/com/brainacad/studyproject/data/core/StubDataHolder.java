@@ -77,8 +77,6 @@ public class StubDataHolder {
             ads.add(ad2);
             ads.add(ad3);
 
-
-
             created = true;
         }
     }
@@ -124,4 +122,27 @@ public class StubDataHolder {
     public static Collection<Ad> getAds(){
         return ads;
     }
+
+    public static boolean deleteUser(int id){
+        users = getUsers();
+        ads = getAds();
+        Iterator<User> iterator = users.iterator();
+        while (iterator.hasNext()){
+            User user = iterator.next();
+            if (user.getId() == id) {
+                int userIdAdGot = id;
+                iterator.remove();
+                Iterator<Ad> adIterator = ads.iterator();
+                while (adIterator.hasNext()){
+                    Ad ad = adIterator.next();
+                    if (ad.getUserIdAdGot() == userIdAdGot){
+                        adIterator.remove();
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

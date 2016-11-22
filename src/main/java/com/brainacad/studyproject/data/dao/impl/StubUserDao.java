@@ -2,6 +2,7 @@ package com.brainacad.studyproject.data.dao.impl;
 
 import com.brainacad.studyproject.data.core.StubDataHolder;
 import com.brainacad.studyproject.data.dao.UserDao;
+import com.brainacad.studyproject.data.domain.Ad;
 import com.brainacad.studyproject.data.domain.User;
 
 import java.util.Collection;
@@ -41,16 +42,26 @@ public class StubUserDao implements UserDao {
 
     @Override
     public boolean delete(int id) {
-        Collection<User> users = StubDataHolder.getUsers();
-        Iterator<User> iterator = users.iterator();
-        while (iterator.hasNext()){
-            User user = iterator.next();
-            if (user.getId() == id) {
-                iterator.remove();
-                return true;
-            }
-        }
-        return false;
+//        Collection<User> users = StubDataHolder.getUsers();
+//        Iterator<User> iterator = users.iterator();
+//        while (iterator.hasNext()){
+//            User user = iterator.next();
+//            if (user.getId() == id) {
+//                int userIdAdGot = user.getId();
+//                iterator.remove();
+//                Collection<Ad> ads = StubDataHolder.getAds();
+//                Iterator<Ad> adIterator = ads.iterator();
+//                while (adIterator.hasNext()){
+//                    Ad ad = adIterator.next();
+//                    if (ad.getId() == userIdAdGot){
+//                        adIterator.remove();
+//                    }
+//                }
+//                return true;
+//            }
+//        }
+//        return false;
+        return StubDataHolder.deleteUser(id);
     }
 
     @Override

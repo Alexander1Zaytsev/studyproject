@@ -33,7 +33,9 @@ public class FullMyAdDescriptionView extends RefreshableView {
         content.add(nameLabel);
         adIdLabel = new JLabel();
         shortDescription = new JTextField();
+        shortDescription.setColumns(10);
         fullAdDescription = new JTextField();
+        fullAdDescription.setColumns(20);
         content.add(adIdLabel);
         content.add(shortDescription);
         content.add(fullAdDescription);

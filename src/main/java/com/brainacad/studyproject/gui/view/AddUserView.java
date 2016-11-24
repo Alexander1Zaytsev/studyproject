@@ -79,6 +79,8 @@ public class AddUserView extends RefreshableView {
 
     @Override
     public void refresh(Object... params) {
+        usernameField.setText("");
+        passwordField.setText("");
 
     }
 }

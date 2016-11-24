@@ -71,6 +71,8 @@ public class AddAdvertisementView extends RefreshableView {
 
     @Override
     public void refresh(Object... params) {
+        shortDescriptionField.setText("");
+        fullDescriptionField.setText("");
         userEnterId = (int) params[0];
 
     }

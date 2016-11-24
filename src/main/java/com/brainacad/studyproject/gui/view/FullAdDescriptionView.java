@@ -23,7 +23,7 @@ public class FullAdDescriptionView extends RefreshableView {
     private UserService userService;
     private JLabel adIdLabel;
     private JLabel usernameLabel;
-    private JTextArea fullDescription;
+    private JLabel fullDescription;
     private int userEnterId;
 
     private JButton backButton;
@@ -37,7 +37,7 @@ public class FullAdDescriptionView extends RefreshableView {
         content.add(nameLabel);
         usernameLabel = new JLabel();
         adIdLabel = new JLabel();
-        fullDescription = new JTextArea();
+        fullDescription = new JLabel();
 
         content.add(adIdLabel);
         content.add(usernameLabel);

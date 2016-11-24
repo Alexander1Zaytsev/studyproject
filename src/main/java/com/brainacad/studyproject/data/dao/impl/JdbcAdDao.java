@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.HashSet;
 
 import static com.brainacad.studyproject.data.domain.AdType.*;
 
@@ -18,7 +19,11 @@ import static com.brainacad.studyproject.data.domain.AdType.*;
  */
 public class JdbcAdDao implements AdDao {
 
-    public static final String SELECT_FROM_ADS_BY_ID = "select a.*, uar.user_id from ads a left join user_ad_ref uar on a.ad_id = uar.ad_id having a.ad_id = ?";
+    public static final String SELECT_FROM_ADS_BY_ID = "SELECT * FROM ads WHERE ad_id = ?";
+    public static final String INSERT_INTO_ADS = "INSERT INTO ads (short_description, full_description,user_id_ad_got) VALUES (?,?,?)";
+    public static final String DELETE_FROM_ADS_WHERE = "DELETE FROM ads WHERE ad_id = ?";
+    public static final String UPDATE_ADS = "UPDATE ads SET short_description=?, full_description=? WHERE ad_id=?";
+    public static final String SELECT_FROM_USERS = "SELECT * FROM ads";
 
     private ConnectionManager connectionManager = ConnectionManager.getInstance();
 
@@ -43,23 +48,21 @@ public class JdbcAdDao implements AdDao {
                     ad.setId(resultSet.getInt("ad_id"));
                     ad.setShortDescription(resultSet.getString("short_description"));
                     ad.setFullDescription(resultSet.getString("full_description"));
-                    AdType adType;
                     switch (resultSet.getInt("ad_type")){
                         case 1:
-                            adType = SELL;
+                            ad.setAdType(SELL);
                             break;
                         case 2:
-                            adType = PURCHASE;
+                            ad.setAdType(PURCHASE);
                             break;
                         case 3:
-                            adType = EXCHANGE;
+                            ad.setAdType(EXCHANGE);
                             break;
                         default:
-                            adType = ABSENT_AD_TYPE;
+                            ad.setAdType(ABSENT_AD_TYPE);
                             break;
                     }
-                    ad.setAdType(adType);
-                    ad.setUserIdAdGot(resultSet.getInt("user_id"));
+                    ad.setUserIdAdGot(resultSet.getInt("user_id_ad_got"));
                 }
             }
             connectionManager.closeConnection(connection);
@@ -71,21 +74,99 @@ public class JdbcAdDao implements AdDao {
 
     @Override
     public int add(Ad entity) {
-        return 0;
+        Connection connection = connectionManager.getConnection();
+        int id = 0;
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(INSERT_INTO_ADS);
+            statement.setString(1, entity.getShortDescription());
+            statement.setString(2, entity.getFullDescription());
+            statement.setInt(3, entity.getUserIdAdGot());
+            id = statement.executeUpdate();
+            connectionManager.closeConnection(connection);
+        } catch (SQLException e) {
+            //TODO Log it
+        }
+        return id;
     }
 
     @Override
     public boolean delete(int id) {
-        return false;
+        Connection connection = connectionManager.getConnection();
+        boolean result = false;
+        try {
+            PreparedStatement statement = connection.prepareStatement(DELETE_FROM_ADS_WHERE);
+            statement.setInt(1, id);
+            int i = statement.executeUpdate();
+            if (id == 0){
+                //TODO Log it
+            } else {
+                result = true;
+            }
+            connectionManager.closeConnection(connection);
+        } catch (SQLException e) {
+            //TODO Log it
+        }
+        return result;
     }
 
     @Override
     public boolean update(Ad entity) {
-        return false;
+        Connection connection = connectionManager.getConnection();
+        boolean result = false;
+        try {
+            PreparedStatement statement = connection.prepareStatement(UPDATE_ADS);
+            statement.setString(1, entity.getShortDescription());
+            statement.setString(2, entity.getFullDescription());
+            statement.setInt(3, entity.getId());
+            int i = statement.executeUpdate();
+            if (i == 0){
+                //TODO Exception and log
+            } else {
+                result = true;
+            }
+            connectionManager.closeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override
     public Collection<Ad> getAll() {
-        return null;
+        Connection connection = connectionManager.getConnection();
+        Collection<Ad> ads = new HashSet<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement(SELECT_FROM_USERS);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet != null){
+                while (resultSet.next()){
+                    Ad ad = new Ad();
+                    ad.setId(resultSet.getInt("ad_id"));
+                    ad.setShortDescription(resultSet.getString("short_description"));
+                    ad.setFullDescription(resultSet.getString("full_description"));
+                    switch (resultSet.getInt("ad_type")){
+                        case 1:
+                            ad.setAdType(SELL);
+                            break;
+                        case 2:
+                            ad.setAdType(PURCHASE);
+                            break;
+                        case 3:
+                            ad.setAdType(EXCHANGE);
+                            break;
+                        default:
+                            ad.setAdType(ABSENT_AD_TYPE);
+                            break;
+                    }
+                    ad.setUserIdAdGot(resultSet.getInt("user_id_ad_got"));
+                    ads.add(ad);
+                }
+            }
+            connectionManager.closeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ads;
     }
 }

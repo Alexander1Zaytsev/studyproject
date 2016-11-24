@@ -92,6 +92,7 @@ public class StubDataHolder {
                 }
             }
             user.setId(maxId + 1);
+            user.setRole(USER);
             return user.getId();
         }else {
             return 0;

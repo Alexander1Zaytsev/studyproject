@@ -1,5 +1,8 @@
-package com.brainacad.studyproject.data.dao;
+package com.brainacad.studyproject.data.dao.impl;
 
+import com.brainacad.studyproject.data.dao.AdDao;
+import com.brainacad.studyproject.data.dao.DaoFactory;
+import com.brainacad.studyproject.data.dao.UserDao;
 import com.brainacad.studyproject.data.dao.impl.JdbcAdDao;
 import com.brainacad.studyproject.data.dao.impl.JdbcUserDao;
 

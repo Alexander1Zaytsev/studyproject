@@ -44,7 +44,8 @@ public class AllAdsView extends RefreshableView {
         String[] columns = {"ID", "USERNAME", "USERENTERID", "SHORTDESCRIPTION", ""};
         tableModel = new DefaultTableModel(columns, 0);
         adsTable = new JTable(tableModel);
-        adsTable.getColumnModel().getColumn(2).setPreferredWidth(120);
+        adsTable.getColumnModel().getColumn(2).setPreferredWidth(20);
+        adsTable.getColumnModel().getColumn(3).setPreferredWidth(120);
         adsTable.getColumnModel().getColumn(4).setCellRenderer(new TableButtonCellRenderer());
         adsTable.getColumnModel().getColumn(4).setCellEditor(new AdFullButtonEditor(new JCheckBox()));
         content.add(adsTable);

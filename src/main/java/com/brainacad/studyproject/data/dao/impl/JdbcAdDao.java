@@ -19,11 +19,22 @@ import static com.brainacad.studyproject.data.domain.AdType.*;
  */
 public class JdbcAdDao implements AdDao {
 
-    public static final String SELECT_FROM_ADS_BY_ID = "SELECT * FROM ads WHERE ad_id = ?";
-    public static final String INSERT_INTO_ADS = "INSERT INTO ads (short_description, full_description,user_id_ad_got) VALUES (?,?,?)";
-    public static final String DELETE_FROM_ADS_WHERE = "DELETE FROM ads WHERE ad_id = ?";
-    public static final String UPDATE_ADS = "UPDATE ads SET short_description=?, full_description=? WHERE ad_id=?";
+    public static final String AD_ID = "ad_id";
+    public static final String SHORT_DESCRIPTION = "short_description";
+    public static final String FULL_DESCRIPTION = "full_description";
+    public static final String AD_TYPE = "ad_type";
+
+    public static final String USER_ID_AD_GOT = "user_id_ad_got";
+    public static final String SELECT_FROM_ADS_BY_ID = "SELECT * FROM ads WHERE " + AD_ID + " = ?";
+    public static final String INSERT_INTO_ADS = "INSERT INTO ads (" + SHORT_DESCRIPTION + ", " + FULL_DESCRIPTION + "," +
+            USER_ID_AD_GOT + ") VALUES (?,?,?)";
+    public static final String DELETE_FROM_ADS_WHERE = "DELETE FROM ads WHERE " + AD_ID + " = ?";
+    public static final String UPDATE_ADS = "UPDATE ads SET " + SHORT_DESCRIPTION + "=?, " + FULL_DESCRIPTION + "=? WHERE " +
+            AD_ID + "=?";
     public static final String SELECT_FROM_USERS = "SELECT * FROM ads";
+
+
+
 
     private ConnectionManager connectionManager = ConnectionManager.getInstance();
 
@@ -45,10 +56,10 @@ public class JdbcAdDao implements AdDao {
             if (resultSet != null) {
                 ad = new Ad();
                 while (resultSet.next()){
-                    ad.setId(resultSet.getInt("ad_id"));
-                    ad.setShortDescription(resultSet.getString("short_description"));
-                    ad.setFullDescription(resultSet.getString("full_description"));
-                    switch (resultSet.getInt("ad_type")){
+                    ad.setId(resultSet.getInt(AD_ID));
+                    ad.setShortDescription(resultSet.getString(SHORT_DESCRIPTION));
+                    ad.setFullDescription(resultSet.getString(FULL_DESCRIPTION));
+                    switch (resultSet.getInt(AD_TYPE)){
                         case 1:
                             ad.setAdType(SELL);
                             break;
@@ -59,10 +70,10 @@ public class JdbcAdDao implements AdDao {
                             ad.setAdType(EXCHANGE);
                             break;
                         default:
-                            ad.setAdType(ABSENT_AD_TYPE);
+                            ad.setAdType(SELL);
                             break;
                     }
-                    ad.setUserIdAdGot(resultSet.getInt("user_id_ad_got"));
+                    ad.setUserIdAdGot(resultSet.getInt(USER_ID_AD_GOT));
                 }
             }
             connectionManager.closeConnection(connection);
@@ -142,10 +153,10 @@ public class JdbcAdDao implements AdDao {
             if (resultSet != null){
                 while (resultSet.next()){
                     Ad ad = new Ad();
-                    ad.setId(resultSet.getInt("ad_id"));
-                    ad.setShortDescription(resultSet.getString("short_description"));
-                    ad.setFullDescription(resultSet.getString("full_description"));
-                    switch (resultSet.getInt("ad_type")){
+                    ad.setId(resultSet.getInt(AD_ID));
+                    ad.setShortDescription(resultSet.getString(SHORT_DESCRIPTION));
+                    ad.setFullDescription(resultSet.getString(FULL_DESCRIPTION));
+                    switch (resultSet.getInt(AD_TYPE)){
                         case 1:
                             ad.setAdType(SELL);
                             break;
@@ -156,10 +167,10 @@ public class JdbcAdDao implements AdDao {
                             ad.setAdType(EXCHANGE);
                             break;
                         default:
-                            ad.setAdType(ABSENT_AD_TYPE);
+                            ad.setAdType(SELL);
                             break;
                     }
-                    ad.setUserIdAdGot(resultSet.getInt("user_id_ad_got"));
+                    ad.setUserIdAdGot(resultSet.getInt(USER_ID_AD_GOT));
                     ads.add(ad);
                 }
             }

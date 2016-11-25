@@ -28,11 +28,11 @@ public class JdbcConnectionPool {
         int poolSize = Integer.parseInt(getConfigurationProperty(CONNECTION_POOL_SIZE));
         connections = new Connection[poolSize];
         String driverName = getConfigurationProperty(DB_DRIVER);
-        /*try {
+        try {
             Class.forName(driverName);
         } catch (ClassNotFoundException e) {
             throw new ApplicationInitializationException("Failed to load " + driverName);
-        }*/
+        }
         for (int i = 0; i < poolSize; i++) {
             try {
                 connections[i] = DriverManager.getConnection(
@@ -40,7 +40,7 @@ public class JdbcConnectionPool {
                         getConfigurationProperty(USER),
                         getConfigurationProperty(PASSWORD));
             } catch (SQLException e) {
-                throw new ApplicationInitializationException("Failed to create connection to DB");
+                throw new ApplicationInitializationException("Failed to create connection to DB" + e.getMessage());
             }
         }
     }

@@ -1,19 +1,18 @@
 package com.brainacad.studyproject.gui.view;
 
 
+import com.brainacad.studyproject.data.dao.DaoFactory;
 import com.brainacad.studyproject.data.domain.Role;
 import com.brainacad.studyproject.gui.ViewRouter;
 import com.brainacad.studyproject.service.LoginService;
-import com.brainacad.studyproject.service.UserService;
 import com.brainacad.studyproject.service.impl.LoginServiceImpl;
-import com.brainacad.studyproject.service.impl.UserServiceImpl;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static com.brainacad.studyproject.data.domain.Role.ADMIN;
 import static com.brainacad.studyproject.gui.view.View.ALL_ADS;
 import static com.brainacad.studyproject.gui.view.View.USERS;
 
@@ -22,13 +21,15 @@ import static com.brainacad.studyproject.gui.view.View.USERS;
  */
 public class LoginView extends RefreshableView {
 
+    final static Logger LOG = Logger.getLogger(LoginView.class);
+
     private JTextField usernameField;
     private JTextField passwordField;
     private LoginService loginService;
     private int userEnterId;
 
     public LoginView() {
-        loginService = new LoginServiceImpl();
+        loginService = new LoginServiceImpl(DaoFactory.getDaoFactory().getUserDao());
         content.setBorder(new EmptyBorder(5, 5, 5, 5));
         usernameField = new JTextField();
         usernameField.setBounds(188, 51, 99, 20);
@@ -60,9 +61,11 @@ public class LoginView extends RefreshableView {
                 ViewRouter viewRouter = ViewRouter.getInstance();
                 switch (login){
                     case USER:
+                        LOG.info("User " + username + "ID " + loginService.getUserId(username,password) +  " logged in");
                         viewRouter.switchView(getName(),ALL_ADS, loginService.getUserId(username,password));
                         break;
                     case ADMIN:
+                        LOG.info("User " + username + "ID " + loginService.getUserId(username,password) +  " logged in");
                         viewRouter.switchView(getName(), USERS);
                         break;
                     default:

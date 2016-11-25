@@ -4,6 +4,7 @@ import com.brainacad.studyproject.data.core.ConnectionManager;
 import com.brainacad.studyproject.data.dao.UserDao;
 import static com.brainacad.studyproject.data.domain.Role.*;
 import com.brainacad.studyproject.data.domain.User;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +17,13 @@ import java.util.HashSet;
  * Created by User on 05/11/2016.
  */
 public class JdbcUserDao implements UserDao {
+
+    final static Logger LOG = Logger.getLogger(JdbcUserDao.class);
+
+    public static final String USER_ID = "user_id";
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
+    public static final String ROLE_ID = "role_id";
 
     public static final String SELECT_FROM_USERS = "SELECT * FROM users";
     public static final String WHERE_USERNAME_LIKE = SELECT_FROM_USERS + " WHERE username LIKE ?";
@@ -40,10 +48,10 @@ public class JdbcUserDao implements UserDao {
             if (resultSet != null){
                 user = new User();
                 while (resultSet.next()){
-                    user.setId(resultSet.getInt("user_id"));
-                    user.setUsername(resultSet.getString("username"));
-                    user.setPassword(resultSet.getString("password"));
-                    user.setRole(resultSet.getInt("role_id") == 1 ? ADMIN : USER);
+                    user.setId(resultSet.getInt(USER_ID));
+                    user.setUsername(resultSet.getString(USERNAME));
+                    user.setPassword(resultSet.getString(PASSWORD ));
+                    user.setRole(resultSet.getInt(ROLE_ID) == 1 ? ADMIN : USER);
                 }
             }
             connectionManager.closeConnection(connection);
@@ -65,10 +73,10 @@ public class JdbcUserDao implements UserDao {
             if (resultSet != null) {
                 user = new User();
                 while (resultSet.next()) {
-                    user.setId(resultSet.getInt("user_id"));
-                    user.setUsername(resultSet.getString("username"));
-                    user.setPassword(resultSet.getString("password"));
-                    user.setRole(resultSet.getInt("role_id") == 1 ? ADMIN : USER);
+                    user.setId(resultSet.getInt(USER_ID));
+                    user.setUsername(resultSet.getString(USERNAME));
+                    user.setPassword(resultSet.getString(PASSWORD));
+                    user.setRole(resultSet.getInt(ROLE_ID) == 1 ? ADMIN : USER);
                 }
             }
             connectionManager.closeConnection(connection);
@@ -91,7 +99,7 @@ public class JdbcUserDao implements UserDao {
             id = statement.executeUpdate();
             connectionManager.closeConnection(connection);
         } catch (SQLException e) {
-            //TODO: log it
+            LOG.warn("Failed to connect with Data Base" + e.getStackTrace());
         }
         return id;
     }
@@ -105,13 +113,13 @@ public class JdbcUserDao implements UserDao {
             statement.setInt(1, id);
             int i  = statement.executeUpdate();
             if (i == 0) {
-                //TODO: log it
+                LOG.warn("On deleting Data Base return user_id = 0");
             } else {
                 result = true;
             }
             connectionManager.closeConnection(connection);
         } catch (SQLException e) {
-            //TODO: log it
+            LOG.warn("Failed to connect with Data Base" + e.getStackTrace());
         }
         return result;
     }
@@ -127,13 +135,13 @@ public class JdbcUserDao implements UserDao {
             statement.setInt(3, user.getId());
             int i = statement.executeUpdate();
             if (i == 0) {
-                //TODO: exception and log
+                LOG.warn("On updating Data Base return user_id = 0");
             } else {
                 result = true;
             }
             connectionManager.closeConnection(connection);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.warn("Failed to connect with Data Base" + e.getStackTrace());
         }
         return result;
     }
@@ -149,16 +157,16 @@ public class JdbcUserDao implements UserDao {
             if (resultSet != null) {
                 while (resultSet.next()) {
                     User user = new User();
-                    user.setId(resultSet.getInt("user_id"));
-                    user.setUsername(resultSet.getString("username"));
-                    user.setPassword(resultSet.getString("password"));
-                    user.setRole(resultSet.getInt("role_id") == 1 ? ADMIN : USER);
+                    user.setId(resultSet.getInt(USER_ID));
+                    user.setUsername(resultSet.getString(USERNAME));
+                    user.setPassword(resultSet.getString(PASSWORD ));
+                    user.setRole(resultSet.getInt(ROLE_ID) == 1 ? ADMIN : USER);
                     users.add(user);
                 }
             }
             connectionManager.closeConnection(connection);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOG.warn("Failed to connect with Data Base" + e.getStackTrace());
         }
         return users;
     }

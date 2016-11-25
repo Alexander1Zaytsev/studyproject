@@ -2,6 +2,7 @@ package com.brainacad.studyproject;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -29,6 +30,7 @@ public class ApplicationTest {
         file.delete();
     }
 
+    @Ignore
     @Test
     public void testHello(){
 

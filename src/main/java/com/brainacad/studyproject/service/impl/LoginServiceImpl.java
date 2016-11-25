@@ -8,7 +8,6 @@ import com.brainacad.studyproject.data.domain.Role;
 import com.brainacad.studyproject.data.domain.User;
 import com.brainacad.studyproject.service.LoginService;
 
-import static com.brainacad.studyproject.data.domain.Role.ABSENT;
 import static com.brainacad.studyproject.data.domain.Role.ADMIN;
 import static com.brainacad.studyproject.data.domain.Role.USER;
 
@@ -17,7 +16,11 @@ import static com.brainacad.studyproject.data.domain.Role.USER;
  */
 public class LoginServiceImpl implements LoginService{
 
-   private UserDao userDao = DaoFactory.getDaoFactory().getUserDao();
+   private UserDao userDao; //= DaoFactory.getDaoFactory().getUserDao();
+
+    public LoginServiceImpl(UserDao userDao){
+        this.userDao = userDao;
+    }
 
 
     @Override
@@ -27,7 +30,7 @@ public class LoginServiceImpl implements LoginService{
         if (user != null && password.equals(user.getPassword())){
             return user.getRole();
         }
-    return ABSENT;
+    return null;
     }
 
     @Override

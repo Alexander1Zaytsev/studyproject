@@ -1,1 +1,1 @@
-This is study project in Brain Academy
+This is the study project in Brain Academy

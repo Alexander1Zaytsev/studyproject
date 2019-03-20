@@ -24,7 +24,7 @@ public class LoginServiceImpl implements LoginService{
         if (user != null && password.equals(user.getPassword())){
             return user.getRole();
         }
-    return null;
+    return Role.UNDEFINED;
     }
 
     @Override

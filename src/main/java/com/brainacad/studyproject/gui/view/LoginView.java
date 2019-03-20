@@ -68,6 +68,10 @@ public class LoginView extends RefreshableView {
                         LOG.info("User " + username + "ID " + loginService.getUserId(username,password) +  " logged in");
                         viewRouter.switchView(getName(), USERS);
                         break;
+                    case UNDEFINED:
+                        JOptionPane.showMessageDialog(null, "Wrong username or password");
+                        refresh();
+                        break;
                     default:
                         JOptionPane.showMessageDialog(null, "Wrong username or password");
                         refresh();
